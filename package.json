@@ -1,0 +1,11 @@
+{
+  "name": "node-js-training",
+  "version": "1.0.0",
+  "description": "proxy service for NASA API",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js"
+  },
+  "author": "maksim.lisovich",
+  "license": "ISC"
+}
