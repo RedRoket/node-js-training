@@ -1,6 +1,6 @@
 # node-js-training
 
-proxy service for NASA API
+proxy service for NASA API ```https://api.nasa.gov/```
 
 # getting started
 
