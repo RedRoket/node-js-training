@@ -5,7 +5,6 @@ const router = express.Router();
 
 router
     .route('/')
-    .get(asteroidsController.getAsteroids)
-    .post(asteroidsController.receivePictureFromRover);
+    .get(asteroidsController.getAsteroids);
 
 module.exports = router;

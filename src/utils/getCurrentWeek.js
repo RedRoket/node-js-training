@@ -1,12 +1,11 @@
-const dateFns = require('date-fns');
+const { format, startOfWeek, addDays } = require('date-fns');
 
 const getCurrentWeek = () => {
     const today = new Date();
-    const monday = dateFns.startOfWeek(today, {weekStartsOn: 1});
-    const friday = dateFns.addDays(monday, 4);
-    const formatDate = (date) => new Date(date.getTime() - (date.getTimezoneOffset() * 60000 )).toISOString().split("T")[0];
+    const monday = format(startOfWeek(today, {weekStartsOn: 1}), 'yyyy-MM-dd');
+    const friday = format(addDays(monday, 4), 'yyyy-MM-dd');
 
-    return { start: formatDate(monday), end: formatDate(friday) };
+    return { start: monday, end: friday };
 };
 
 module.exports = getCurrentWeek;
