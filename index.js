@@ -1,26 +1,19 @@
 const axios = require('axios');
-
-const NASA_ASTEROIDS_FEED_URL = 'https://api.nasa.gov/neo/rest/v1/feed';
-const API_KEY = 'eLmnePyuHtTVKYHiKBC7fVH4weBUtTMiZIGoZftC';
+const dateFns = require('date-fns');
+require('dotenv').config();
 
 const getCurrentWeek = () => {
     const today = new Date();
-    const dayOfWeek = today.getDay();
-    const monday = new Date(today);
-    monday.setDate(today.getDate() - (dayOfWeek === 0 ? 6 : dayOfWeek - 1));
-    monday.setHours(1, 0, 0, 0);
+    const monday = dateFns.startOfWeek(today, {weekStartsOn: 1});
+    const friday = dateFns.addDays(monday, 4);
+    const formatDate = (date) => new Date(date.getTime() - (date.getTimezoneOffset() * 60000 )).toISOString().split("T")[0];
 
-    const friday = new Date(monday);
-    friday.setDate(monday.getDate() + 4);
-
-    const formatDate = date => date.toISOString().split('T')[0];
     return { start: formatDate(monday), end: formatDate(friday) };
 };
 
 const potentiallyHazardousAsteroid = (asteroids) => {
     return Object.values(asteroids).flat().filter(({ is_potentially_hazardous_asteroid }) => is_potentially_hazardous_asteroid).length;
 }
-
 
 const handleResponse = (response) => {
     if (!response.data) {
@@ -34,11 +27,11 @@ const handleResponse = (response) => {
 
 const getAsteroidsWithinPeriod = (startDate = defaultStart, endDate = defaultEnd) => {
     console.log({ startDate, endDate });
-    axios.get(NASA_ASTEROIDS_FEED_URL, {
+    axios.get(process.env.NASA_ASTEROIDS_FEED_URL, {
         params: {
             start_date: startDate,
             end_date: endDate,
-            api_key: API_KEY
+            api_key: process.env.API_KEY
         }
     })
     .then(handleResponse)
