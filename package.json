@@ -4,10 +4,14 @@
   "description": "proxy service for NASA API",
   "main": "index.js",
   "scripts": {
-    "start": "node index.js"
+    "local": "node --env-file=.env.local index.js",
+    "start": "node --env-file=.env.development.local index.js"
   },
   "dependencies": {
-    "axios": "^1.6.7"
+    "axios": "^1.6.7",
+    "dotenv": "^16.4.5",
+    "date-fns": "^3.3.1"
+
   },
   "author": "maksim.lisovich",
   "license": "ISC"
