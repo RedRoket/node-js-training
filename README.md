@@ -7,7 +7,7 @@ proxy service for [NASA API](https://api.nasa.gov/)
 to install needed dependences: ```npm install``` or ```npm i```
 
 to run the app: ```npm run start```
-to run the app local use: ```npm run local```
+to run the app local use: ```npm run dev```
 
 # environment variables
 
