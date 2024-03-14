@@ -1,13 +1,31 @@
 const express = require('express');
-const router = require('./routes/indexRoutes');
-require('dotenv').config();
+const morgan = require('morgan');
+const boolParser = require('express-query-boolean');
+const router = require('./routes/index');
+const exceptionHandler = require('./middleware/exceptions-middleware');
+const Sentry = require('@sentry/node');
+const logger = require('./common/logger');
+const config = require('./config/config');
 
+const { port, sentryDns } = config.server;
 const app = express();
 
-const PORT = process.env.PORT;
+Sentry.init({
+    dsn: sentryDns,
+    integrations: [
+      new Sentry.Integrations.Http({ tracing: true }),
+      new Sentry.Integrations.Express({ app }),
+    ],
+    tracesSampleRate: 1.0,
+});
 
+app.use(Sentry.Handlers.requestHandler());
+app.use(morgan('combined'));
+app.use(boolParser());
 app.use('/', router);
+app.use(Sentry.Handlers.errorHandler());
+app.use(exceptionHandler);
 
-app.listen(PORT, () => {
-    console.log(`Server started: http://localhost:${PORT}`);
+app.listen(port, () => {
+    logger.info(`Server started: http://localhost:${port}`);
 });
