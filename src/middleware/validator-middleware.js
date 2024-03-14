@@ -19,7 +19,7 @@ module.exports = (validator) => {
             req.body = validated;
             next();
         } catch (err) {
-            if(err.isJoi) {
+            if (err.isJoi) {
                 return next(createHttpError(422, {message: err.message}));
             }
             next(createHttpError(500));

@@ -20,6 +20,7 @@ Sentry.init({
 });
 
 app.use(Sentry.Handlers.requestHandler());
+app.use(Sentry.Handlers.tracingHandler());
 app.use(morgan('combined'));
 app.use(boolParser());
 app.use('/', router);
