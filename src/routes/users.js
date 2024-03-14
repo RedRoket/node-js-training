@@ -1,10 +1,13 @@
 const express = require('express');
-const asteroidsController = require('../controllers/usersController');
+const parser = require('body-parser');
+const userController = require('../controllers/users-controller');
+const validator = require('../middleware/validator-middleware');
 
 const router = express.Router();
 
 router
+    .use(parser.json())
     .route('/')
-    .post(asteroidsController.receivePictureFromRover);
+    .post(validator('userRequest'), userController.receivePictureFromRover);
 
 module.exports = router;

@@ -8,10 +8,19 @@
     "start": "node --env-file=/src/config/.env ./src/server.js"
   },
   "dependencies": {
+    "@hapi/joi": "^17.1.1",
+    "@hapi/joi-date": "^2.0.1",
+    "@sentry/node": "^7.106.1",
     "axios": "^1.6.7",
+    "body-parser": "^1.20.2",
     "date-fns": "^3.3.1",
     "dotenv": "^16.4.5",
-    "express": "^4.18.3"
+    "express": "^4.18.3",
+    "express-partial-response": "^1.0.4",
+    "express-query-boolean": "^2.0.0",
+    "http-errors": "^2.0.0",
+    "morgan": "^1.10.0",
+    "pino": "^8.19.0"
   },
   "author": "maksim.lisovich",
   "license": "ISC"
