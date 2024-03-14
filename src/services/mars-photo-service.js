@@ -18,11 +18,8 @@ const handlePhotoResponse = (response) => {
 };
 
 const handleManifestResponse = async (response) => {
-    // const latestDate = format(new Date(Math.max.apply(null, response.data.photo_manifest.photos.map(function (e) {
-    //     return new Date(e.earth_date);
-    // }))), DATE_FORMAT);
     const latestDate = format(new Date(response.data.photo_manifest.max_date), DATE_FORMAT);
-    logger.info(`latest DATE : ${latestDate}`);
+    logger.info(`latest date : ${latestDate}`);
 
     const photoResponse = await axios.get(baseUrl + marsPhotoEndpoint, {
         params: {
