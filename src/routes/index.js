@@ -1,14 +1,11 @@
 const express = require('express');
-const meteorsRoutes = require('./meteors');
-const usersRoutes = require('./users');
+const apiRouter = require('../routes/api/router');
+const webRouter = require('../routes/web/router');
 
 const router = express.Router();
 
-router.get('/', (req, res) => {
-    res.send('Hello World!');
-});
-
-router.use('/meteors', meteorsRoutes);
-router.use('/users', usersRoutes);
+router.use('/api', apiRouter);
+router.use('/web', webRouter);
+router.get('/', (req, res) => res.render('home-page.html', { title: 'Home page' }));
 
 module.exports = router;
