@@ -19,6 +19,7 @@
     "express-query-boolean": "^2.0.0",
     "http-errors": "^2.0.0",
     "morgan": "^1.10.0",
+    "nunjucks": "^3.2.4",
     "pino": "^8.19.0"
   },
   "author": "maksim.lisovich",

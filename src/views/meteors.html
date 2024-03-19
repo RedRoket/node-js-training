@@ -1,0 +1,42 @@
+{% extends "./layout.html" %}
+
+{% block content %}
+
+<h1>Asteroids</h1>
+<h3>Count: {{ elementCount }}</h3>
+{% if wereDangerousMeteors %}
+<h3>Bad boy was detected</h3>
+{% else %}
+<h3>Breathe out, we're safe</h3>
+{% endif %}
+<ul>
+  {% for meteor in meteors %}
+  <button class="collapsible">{{meteor.name}}</button>
+  <div class="content-collapsible">
+    <li>ID: {{ meteor.id }}</li>
+    <li>Name: {{ meteor.name }}</li>
+    <li>Average diameter (m): {{ meteor.diameterInMeters }}</li>
+    <li>Is hazardous: {{ meteor.isPotentiallyHazardousAsteroids }}</li>
+    <li>Approach date: {{ meteor.closeApproachData }}</li>
+    <li>Velocity (kps): {{ meteor.kilometersPerSecond }}</li>
+  </div>
+  {% endfor %}
+</ul>
+
+<script>
+  var coll = document.getElementsByClassName("collapsible");
+  var i;
+
+  for (i = 0; i < coll.length; i++) {
+    coll[i].addEventListener("click", function () {
+      this.classList.toggle("active");
+      var content = this.nextElementSibling;
+      if (content.style.maxHeight) {
+        content.style.maxHeight = null;
+      } else {
+        content.style.maxHeight = content.scrollHeight + "px";
+      }
+    });
+  }
+</script>
+{% endblock %}

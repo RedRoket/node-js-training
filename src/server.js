@@ -1,5 +1,6 @@
 const express = require('express');
-const morgan = require('morgan');
+const path = require('node:path');
+const nunjucks = require('nunjucks');
 const boolParser = require('express-query-boolean');
 const router = require('./routes/index');
 const exceptionHandler = require('./middleware/exceptions-middleware');
@@ -19,13 +20,20 @@ Sentry.init({
     tracesSampleRate: 1.0,
 });
 
+nunjucks.configure(path.resolve(__dirname, './views'), {
+  autoescape: true,
+  express: app,
+  noCache: true
+});
+
+app.use(express.static(path.join(__dirname, '..', 'public')));
 app.use(Sentry.Handlers.requestHandler());
 app.use(Sentry.Handlers.tracingHandler());
-app.use(morgan('combined'));
 app.use(boolParser());
 app.use('/', router);
 app.use(Sentry.Handlers.errorHandler());
 app.use(exceptionHandler);
+app.use('*', (req, res) => res.render(path.resolve(__dirname, 'views', 'page-not-found.html'), { titel: 'Page not found' }));
 
 app.listen(port, () => {
     logger.info(`Server started: http://localhost:${port}`);
