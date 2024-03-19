@@ -13,6 +13,4 @@ const receivePictureFromRover = async (req, res, next) => {
     }
 }
 
-module.exports = {
-    receivePictureFromRover
-};
+module.exports = receivePictureFromRover;

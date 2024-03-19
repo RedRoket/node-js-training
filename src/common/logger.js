@@ -1,14 +1,14 @@
-const pino = require("pino");
-const fs = require("fs");
+const pino = require('pino');
+const fs = require('fs');
 
 const streams = [
     {
-        level: "info",
-        stream: fs.createWriteStream("./app.log", { flags: "a" }),
+        level: 'info',
+        stream: fs.createWriteStream('./app.log', { flags: 'a' }),
     },
     {
-        level: "error",
-        stream: fs.createWriteStream("./error.log", { flags: "a" }),
+        level: 'error',
+        stream: fs.createWriteStream('./error.log', { flags: 'a' }),
     },
     {
         stream: process.stdout
@@ -17,7 +17,7 @@ const streams = [
 
 module.exports = pino(
     {
-        level: "info",
+        level: 'info',
     },
     pino.multistream(streams)
 );

@@ -1,5 +1,7 @@
 const axios = require('axios');
+const createHttpError = require('http-errors');
 const { mapAsteroidsToMeteorResponse } = require('../mappers/asteroids-mapper');
+const { asteroidsResponseSchema } = require('../validators');
 const Exception = require('../common/Exception');
 const logger = require('../common/logger');
 const config = require('../config/config');
@@ -15,13 +17,21 @@ const logAsteroidsInfo = (asteroidsData) => {
     logger.info(`Amount of objects which is potentially hazardous asteroid: ${potentiallyHazardousAsteroid(asteroids)}`);
 }
 
-const handleResponse = (response) => {
-    if (!response.data) {
-        throw new Exception(400, 'No data in NASA response');
+const handleResponse = async (response) => {
+    try {
+        const asteroidsData = await asteroidsResponseSchema.validateAsync(response.data, {
+            abortEarly: false,
+            stripUnknown: true
+        });
+        logAsteroidsInfo(asteroidsData);
+    
+        return mapAsteroidsToMeteorResponse(asteroidsData);
+    } catch (err) {
+        if (err.isJoi) {
+            throw createHttpError(500, { message: "Nasa Asteroids response: Invalid response format" });
+        }
+        throw new Exception(err.statusCode, err.message);
     }
-    const asteroidsData = response.data;
-    logAsteroidsInfo(asteroidsData);
-    return mapAsteroidsToMeteorResponse(asteroidsData);
 }
 
 const getAsteroidsWithinPeriod = ({ startDate, endDate }) => {
