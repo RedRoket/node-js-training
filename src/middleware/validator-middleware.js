@@ -1,5 +1,4 @@
 const createHttpError = require('http-errors');
-const Joi = require('@hapi/joi');
 const Validators = require('../validators');
 
 module.exports = (validator) => {
