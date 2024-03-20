@@ -5,8 +5,6 @@ const validatorMiddleware = require('../../middleware/validator-middleware');
 
 const router = express.Router();
 
-router
-    .use(parser.json())
-    .post('/users', validatorMiddleware('userRequestSchema'), receivePictureFromRover);
+router.use(parser.json()).post('/users', validatorMiddleware('userRequestSchema'), receivePictureFromRover);
 
 module.exports = router;

@@ -5,9 +5,9 @@ const manifestResponseSchema = require('../validators/manifest-response-schema')
 const marsPhotoResponseSchema = require('../validators/mars-photo-response-schema');
 
 module.exports = {
-    asteroidsRequestSchema,
-    userRequestSchema,
-    asteroidsResponseSchema,
-    manifestResponseSchema,
-    marsPhotoResponseSchema
+  asteroidsRequestSchema,
+  userRequestSchema,
+  asteroidsResponseSchema,
+  manifestResponseSchema,
+  marsPhotoResponseSchema,
 };

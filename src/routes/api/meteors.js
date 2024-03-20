@@ -5,7 +5,6 @@ const getMeteors = require('../../controllers/api/asteroids-controller');
 
 const router = express.Router();
 
-router
-    .get('/meteors', validatorMiddleware('asteroidsRequestSchema'), meteorsResponseMiddleware, getMeteors);
+router.get('/meteors', validatorMiddleware('asteroidsRequestSchema'), meteorsResponseMiddleware, getMeteors);
 
 module.exports = router;
