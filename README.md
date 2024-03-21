@@ -22,6 +22,18 @@ To run the app locally  use (in auto-restart mode on code changes):
 npm run dev
 ```
 
+To run app in docker container:
+
+```sh
+npm run docker
+```
+
+To run app in docker container with auto-restart on code changes:
+
+```sh
+npm run docker-dev
+```
+
 To run EsLint:
 
 ```sh
