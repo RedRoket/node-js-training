@@ -15,7 +15,7 @@ const handlePhotoResponse = async (response) => {
       stripUnknown: true,
     });
     const photos = validatedResponse.photos;
-    const latestPhoto = photos[photos.length - 1];
+    const latestPhoto = photos.at(-1);
 
     return latestPhoto.img_src;
   } catch (err) {

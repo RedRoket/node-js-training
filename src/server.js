@@ -3,7 +3,6 @@ const path = require('node:path');
 const nunjucks = require('nunjucks');
 const boolParser = require('express-query-boolean');
 const router = require('./routes/index');
-const exceptionHandler = require('./middleware/exceptions-middleware');
 const Sentry = require('@sentry/node');
 const logger = require('./common/logger');
 const config = require('./config/config');
@@ -29,7 +28,6 @@ app.use(Sentry.Handlers.tracingHandler());
 app.use(boolParser());
 app.use('/', router);
 app.use(Sentry.Handlers.errorHandler());
-app.use(exceptionHandler);
 app.use('*', (req, res) =>
   res.render(path.resolve(__dirname, 'views', 'page-not-found.html'), { titel: 'Page not found' }),
 );
