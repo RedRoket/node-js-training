@@ -9,14 +9,14 @@ module.exports = (schemaName) => {
 
   return async function (req, res, next) {
     try {
-      if (req.method.toLowerCase() === 'get') {
-        const validated = await validator.validateAsync(req.query);
-        req.query = validated;
+      const { method, query, body } = req;
+
+      if (method.toLowerCase() === 'get') {
+        await validator.validateAsync(query);
         next();
         return;
       }
-      const validated = await validator.validateAsync(req.body);
-      req.body = validated;
+      await validator.validateAsync(body);
       next();
     } catch (err) {
       if (err.isJoi) {
